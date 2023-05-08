@@ -3,10 +3,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import 'Components/custom_Check_Box_Stateless.dart';
+import 'Components/custom_check_box_stateless.dart';
 import 'Models/filter_Model.dart';
 import 'filter_options.dart';
-import 'helperFunctions/filter_Functions.dart';
+import 'helperFunctions/filter_functions.dart';
 
 /// Generates a horizontal list of filters from the  given data
 ///
