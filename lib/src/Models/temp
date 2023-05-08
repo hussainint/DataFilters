@@ -1,0 +1,54 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
+
+import 'Models/filterModel.dart';
+
+class DataFilters extends StatefulWidget {
+  List<List> data;
+  List<String> filter_title;
+  DataFilters({
+    required this.data,
+    required this.filter_title,
+  });
+
+  @override
+  State<DataFilters> createState() => _DataFiltersState();
+}
+
+class _DataFiltersState extends State<DataFilters> {
+  List<FilterModel> filters = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    filters = createFilters(widget.data, widget.filter_title);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: filters.length,
+      itemBuilder: (ctx, i) {
+        return Text('${filters[i].title}/n${filters[i].options}');
+      },
+    );
+  }
+
+  List<FilterModel> createFilters(List<List> data, List<String> filter_title) {
+    List<FilterModel> filters = [];
+
+    for (int i = 0; i < data[0].length; i++) {
+      List<String> options = [];
+      for (int j = 0; j < data.length; j++) {
+        options.add(data[j][i]);
+      }
+      FilterModel filter = FilterModel(
+        title: filter_title[i],
+        options: options.toSet().toList(),
+      );
+      filters.add(filter);
+    }
+
+    return filters;
+  }
+}
