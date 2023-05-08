@@ -66,6 +66,7 @@ class FilterOptions extends StatelessWidget {
             child: MaterialButton(
               onPressed: () {
                 selected_option(selected_option_string_filter);
+                Navigator.of(context).pop();
               },
               child: Text('D O N E'),
               color: btnClr,

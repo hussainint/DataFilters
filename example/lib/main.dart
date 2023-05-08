@@ -76,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           DataFilters(
             data: data,
-            filter_title: const ['Color', 'Animal', 'Size', 'Sound'],
+            filterTitle: const ['Color', 'Animal', 'Size', 'Sound'],
             recent_selected_data_index: (List<int>? index) {
               setState(() {
                 filterIndex = index;
