@@ -59,7 +59,7 @@ This code builds a filters ui
 ```dart
         DataFilters(
             data: data,
-            filter_title: const ['Color', 'Animal', 'Size', 'Sound'],
+            filterTitle: const ['Color', 'Animal', 'Size', 'Sound'],
             recent_selected_data_index: (List<int>? index) {
               setState(() {
                 filterIndex = index;

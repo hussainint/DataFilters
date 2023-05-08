@@ -1,6 +1,6 @@
 name: data_filters
 description: Add Filters to your existing data
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/hussainint/DataFilters
 
 environment:
