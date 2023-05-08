@@ -1,4 +1,4 @@
-import '../Models/filterModel.dart';
+import '../Models/filter_Model.dart';
 
 List<FilterModel> createFilters(List<List> data, List<String> filter_title) {
   List<FilterModel> filters = [];

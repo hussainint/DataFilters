@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'Components/customCheckBoxStateless.dart';
-import 'Models/filterModel.dart';
+import 'Components/custom_Check_Box_Stateless.dart';
+import 'Models/filter_Model.dart';
 
 class FilterOptions extends StatelessWidget {
   FilterOptions({

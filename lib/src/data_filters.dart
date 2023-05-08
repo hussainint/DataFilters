@@ -3,10 +3,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import 'Components/customCheckBoxStateless.dart';
-import 'Models/filterModel.dart';
+import 'Components/custom_Check_Box_Stateless.dart';
+import 'Models/filter_Model.dart';
 import 'filter_options.dart';
-import 'helperFunctions/filterFunctions.dart';
+import 'helperFunctions/filter_Functions.dart';
 
 /// Generates a horizontal list of filters from the  given data
 ///
@@ -16,7 +16,7 @@ class DataFilters extends StatefulWidget {
   List<List> data;
 
   /// title of each filter category
-  List<String> filter_title;
+  List<String> filterTitle;
 
   /// this function returns the new list of selected index
   final void Function(List<int>?) recent_selected_data_index;
@@ -28,7 +28,7 @@ class DataFilters extends StatefulWidget {
   /// `selected_data_index` can be empty initailly
   DataFilters({
     required this.data,
-    required this.filter_title,
+    required this.filterTitle,
     required this.recent_selected_data_index,
     required this.style,
   });
@@ -45,7 +45,7 @@ class _DataFiltersState extends State<DataFilters> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    filters = createFilters(widget.data, widget.filter_title);
+    filters = createFilters(widget.data, widget.filterTitle);
 
     /// initializing empty selected filters
     initializeEmptySelectedIndexOptionList();
@@ -184,7 +184,7 @@ class _DataFiltersState extends State<DataFilters> {
 
     for (int i = 0; i < widget.data.length; i++) {
       bool shouldAdd = true;
-      for (int j = 0; j < widget.filter_title.length; j++) {
+      for (int j = 0; j < widget.filterTitle.length; j++) {
         if (selected_filter[j].isNotEmpty &&
             !selected_filter[j].contains(widget.data[i][j])) {
           shouldAdd = false;
