@@ -11,25 +11,65 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
+Converts your existing data into Filters.
+ 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+Check out example code in `/example` folder.
+
+
+Your main data must be arranged like below.
 
 ```dart
-const like = 'sample';
+List<List> data = [
+    ['red', 'dog', 'small', 'bark'],
+    ['green', 'cat', 'medium', 'meow'],
+    ['blue', 'fish', 'large', 'swim'],
+    ['red', 'cat', 'small', 'meow'],
+    ['yellow', 'dog', 'large', 'bark'],
+    ['green', 'fish', 'medium', 'swim'],
+    ['blue', 'dog', 'medium', 'bark'],
+    ['red', 'fish', 'large', 'swim'],
+    ['yellow', 'cat', 'small', 'meow'],
+    ['green', 'dog', 'small', 'bark'],
+    ['blue', 'cat', 'large', 'meow'],
+    ['red', 'fish', 'medium', 'swim'],
+    ['yellow', 'dog', 'medium', 'bark'],
+    ['green', 'fish', 'large', 'swim'],
+    ['blue', 'cat', 'small', 'meow'],
+    ['red', 'dog', 'small', 'bark'],
+    ['yellow', 'cat', 'medium', 'meow'],
+    ['green', 'fish', 'small', 'swim'],
+    ['blue', 'dog', 'large', 'bark'],
+    ['red', 'cat', 'medium', 'meow'],
+  ];
+
+
+```
+Selected filters will be stored in form of index
+```dart
+List<int>? filterIndex;
+```
+
+This code builds a filters ui
+```dart
+        DataFilters(
+            data: data,
+            filter_title: const ['Color', 'Animal', 'Size', 'Sound'],
+            recent_selected_data_index: (List<int>? index) {
+              setState(() {
+                filterIndex = index;
+              });
+            },
+            style: FilterStyle(
+              buttonColor: Colors.red,
+              filterBorderColor: Colors.grey,
+            ),
+          ),
 ```
 
 ## Additional information
