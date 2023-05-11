@@ -17,6 +17,9 @@ and the Flutter guide for
 
 Converts your existing data into Filters.
  
+## Demo
+
+![](data_filters.gif)
 ## Usage
 
 Check out example code in `/example` folder.

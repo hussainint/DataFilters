@@ -1,7 +1,7 @@
+import 'package:data_filters/src/Models/filter_model.dart';
 import 'package:flutter/material.dart';
 
 import 'Components/custom_check_box_stateless.dart';
-import 'Models/filter_Model.dart';
 
 class FilterOptions extends StatelessWidget {
   FilterOptions({
@@ -9,7 +9,7 @@ class FilterOptions extends StatelessWidget {
     required this.filters,
     required this.filter_index,
     required this.selected_option,
-    required this.selected_option_string_filter,
+    required this.list_of_all_selected_filtersOptions,
     required this.btnClr,
   });
 
@@ -17,7 +17,7 @@ class FilterOptions extends StatelessWidget {
   final List<FilterModel> filters;
   final int filter_index;
   final void Function(List<List>) selected_option;
-  List<List> selected_option_string_filter = [];
+  List<List> list_of_all_selected_filtersOptions = [];
   Color btnClr;
 
   @override
@@ -40,16 +40,16 @@ class FilterOptions extends StatelessWidget {
                       Flexible(
                           child: Text('${filters[filter_index].options[j]}')),
                       CustomCheckBoxStateless(
-                        value: selected_option_string_filter[filter_index]
+                        value: list_of_all_selected_filtersOptions[filter_index]
                             .contains(filters[filter_index].options[j]),
                         onchanged: (k) {
                           if (k) {
                             ///
-                            selected_option_string_filter[filter_index]
+                            list_of_all_selected_filtersOptions[filter_index]
                                 .add('${filters[filter_index].options[j]}');
                           } else {
                             ///
-                            selected_option_string_filter[filter_index]
+                            list_of_all_selected_filtersOptions[filter_index]
                                 .remove('${filters[filter_index].options[j]}');
                           }
                         },
@@ -65,7 +65,7 @@ class FilterOptions extends StatelessWidget {
             margin: EdgeInsets.all(10),
             child: MaterialButton(
               onPressed: () {
-                selected_option(selected_option_string_filter);
+                selected_option(list_of_all_selected_filtersOptions);
                 Navigator.of(context).pop();
               },
               child: Text('D O N E'),

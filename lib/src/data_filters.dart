@@ -1,10 +1,10 @@
+import 'package:data_filters/src/Models/filter_model.dart';
 import 'package:data_filters/src/Models/style.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'Components/custom_check_box_stateless.dart';
-import 'Models/filter_Model.dart';
 import 'filter_options.dart';
 import 'helperFunctions/filter_functions.dart';
 
@@ -40,7 +40,7 @@ class DataFilters extends StatefulWidget {
 class _DataFiltersState extends State<DataFilters> {
   List<FilterModel> filters = [];
 
-  List<List> selected_option_string_filter = [];
+  List<List> list_of_all_selected_filtersOptions = [];
   @override
   void initState() {
     // TODO: implement initState
@@ -52,9 +52,9 @@ class _DataFiltersState extends State<DataFilters> {
   }
 
   void initializeEmptySelectedIndexOptionList() {
-    selected_option_string_filter.clear();
-    List.generate(
-        widget.data.length, (index) => selected_option_string_filter.add([]));
+    list_of_all_selected_filtersOptions.clear();
+    List.generate(widget.data.length,
+        (index) => list_of_all_selected_filtersOptions.add([]));
   }
 
   ScrollController _scrollController = ScrollController();
@@ -68,6 +68,8 @@ class _DataFiltersState extends State<DataFilters> {
   List allSelectedOptions = [];
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
+
     var height = MediaQuery.of(context).size.height;
 
     return Container(
@@ -103,6 +105,8 @@ class _DataFiltersState extends State<DataFilters> {
                 ),
                 child: InkWell(
                   onTap: () {
+                    /// filters pop up
+                    ///
                     showModalBottomSheet<void>(
                       isScrollControlled: true,
                       isDismissible: true,
@@ -118,14 +122,21 @@ class _DataFiltersState extends State<DataFilters> {
                         return FilterOptions(
                           btnClr: widget.style.buttonColor!,
                           height: height,
+
+                          ///
                           filters: filters,
+
+                          ///
                           filter_index: i,
-                          selected_option_string_filter:
-                              selected_option_string_filter,
+                          list_of_all_selected_filtersOptions:
+                              list_of_all_selected_filtersOptions,
                           selected_option: (List<List> selectedOptions) {
-                            selected_option_string_filter = selectedOptions;
+                            list_of_all_selected_filtersOptions =
+                                selectedOptions;
+
+                            /// pass option values and get index of it
                             List<int> indexs =
-                                search(selected_option_string_filter);
+                                search(list_of_all_selected_filtersOptions);
 
                             widget.recent_selected_data_index(indexs);
                           },
@@ -149,12 +160,12 @@ class _DataFiltersState extends State<DataFilters> {
               if (i == filters.length - 1)
                 Row(
                   children: [
-                    SizedBox(width: 10),
-                    VerticalDivider(
+                    const SizedBox(width: 10),
+                    const VerticalDivider(
                       indent: 10,
                       endIndent: 10,
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     GestureDetector(
                       onTap: () {
                         initializeEmptySelectedIndexOptionList();

@@ -1,5 +1,6 @@
-import '../Models/filter_Model.dart';
+import 'package:data_filters/src/Models/filter_model.dart';
 
+/// converts nested list of values into FilterModel
 List<FilterModel> createFilters(List<List> data, List<String> filter_title) {
   List<FilterModel> filters = [];
 
