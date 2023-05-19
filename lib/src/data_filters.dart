@@ -273,11 +273,14 @@ class _DataFiltersState extends State<DataFilters> {
 
     for (int i = 0; i < widget.data.length; i++) {
       for (int j = 0; j < widget.data[i].length; j++) {
-        if (widget.data[i][j].contains(word)) {
-          if (widget.data[i][j].contains(word)) {
-            indexes.add(i);
-            // print('${widget.data[i]}- ${widget.data[i][j]} contains $word');
-          }
+        // if (widget.data[i][j].contains(word)) {
+        if (widget.data[i][j]
+            .toString()
+            .toLowerCase()
+            .contains(word.toLowerCase())) {
+          indexes.add(i);
+          // print('${widget.data[i]}- ${widget.data[i][j]} contains $word');
+          // }
         }
       }
     }
