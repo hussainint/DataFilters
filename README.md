@@ -23,7 +23,7 @@ https://github.com/hussainint/DataFilters/assets/48062618/5ff0dcb1-2e9a-4d5e-9cb
 
 
 
-![](demo.mp4)
+![](promo.jpg)
 ## Usage
 
 Check out example code in `/example` folder.
