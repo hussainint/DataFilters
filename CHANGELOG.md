@@ -1,3 +1,7 @@
+## 1.0.0
+
+* Search box included. Filter box gets highlited when filters is selected.
+
 ## 0.0.3
 
 * Added animation, the filters row animate when it gets built. Also added comments.

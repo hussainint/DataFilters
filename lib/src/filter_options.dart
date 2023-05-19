@@ -1,6 +1,7 @@
 import 'package:data_filters/src/Models/filter_model.dart';
 import 'package:flutter/material.dart';
 
+import '../data_filters.dart';
 import 'Components/custom_check_box_stateless.dart';
 
 class FilterOptions extends StatelessWidget {
@@ -10,7 +11,8 @@ class FilterOptions extends StatelessWidget {
     required this.filter_index,
     required this.selected_option,
     required this.list_of_all_selected_filtersOptions,
-    required this.btnClr,
+    required this.title,
+    required this.style,
   });
 
   final double height;
@@ -18,7 +20,9 @@ class FilterOptions extends StatelessWidget {
   final int filter_index;
   final void Function(List<List>) selected_option;
   List<List> list_of_all_selected_filtersOptions = [];
-  Color btnClr;
+
+  String title;
+  FilterStyle style;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +32,7 @@ class FilterOptions extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          FilterHeader(text: title),
           Expanded(
             child: ListView.builder(
               itemCount: filters[filter_index].options.length,
@@ -68,11 +73,46 @@ class FilterOptions extends StatelessWidget {
                 selected_option(list_of_all_selected_filtersOptions);
                 Navigator.of(context).pop();
               },
-              child: Text('D O N E'),
-              color: btnClr,
+              color: style.buttonColor,
 
               // margin: EdgeInsets.all(10),
               minWidth: double.infinity,
+              child: Text(
+                'D O N E',
+                style: TextStyle(
+                  color: style.buttonColorText,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class FilterHeader extends StatelessWidget {
+  String text;
+  FilterHeader({required this.text});
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        children: [
+          Container(
+            height: 3,
+            width: 50,
+            margin: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.grey,
+            ),
+          ),
+          Text(
+            text,
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ],

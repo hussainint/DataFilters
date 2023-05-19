@@ -24,6 +24,9 @@ class DataFilters extends StatefulWidget {
   ///
   FilterStyle style;
 
+  ///
+  bool showAnimation;
+
   /// All fields are mandatory
   /// `selected_data_index` can be empty initailly
   DataFilters({
@@ -31,6 +34,7 @@ class DataFilters extends StatefulWidget {
     required this.filterTitle,
     required this.recent_selected_data_index,
     required this.style,
+    required this.showAnimation,
   });
 
   @override
@@ -41,6 +45,8 @@ class _DataFiltersState extends State<DataFilters> {
   List<FilterModel> filters = [];
 
   List<List> list_of_all_selected_filtersOptions = [];
+
+  TextEditingController _searchController = TextEditingController();
   @override
   void initState() {
     // TODO: implement initState
@@ -49,11 +55,12 @@ class _DataFiltersState extends State<DataFilters> {
 
     /// initializing empty selected filters
     initializeEmptySelectedIndexOptionList();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
   }
 
   void initializeEmptySelectedIndexOptionList() {
     list_of_all_selected_filtersOptions.clear();
-    List.generate(widget.data.length,
+    List.generate(widget.filterTitle.length,
         (index) => list_of_all_selected_filtersOptions.add([]));
   }
 
@@ -68,8 +75,8 @@ class _DataFiltersState extends State<DataFilters> {
   List allSelectedOptions = [];
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
-
+    // if (widget.showAnimation &&
+    //     isNestedListEmpty(list_of_all_selected_filtersOptions))
     var height = MediaQuery.of(context).size.height;
 
     return Container(
@@ -83,7 +90,7 @@ class _DataFiltersState extends State<DataFilters> {
         itemCount: filters.length,
         itemBuilder: (ctx, i) {
           // if (i == filter.length) {
-          //   print('last scrollll');
+          // //   print('last scrollll');
           // _scrollToBottom();
 
           return Row(
@@ -98,13 +105,18 @@ class _DataFiltersState extends State<DataFilters> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(2),
                   color: Colors.white,
-                  border: Border.all(color: widget.style.filterBorderColor!),
+                  border: list_of_all_selected_filtersOptions[i].isEmpty
+                      ? Border.all(color: widget.style.filterBorderColor!)
+                      : Border.all(color: Colors.black, width: 2),
                 ),
                 padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                 ),
                 child: InkWell(
                   onTap: () {
+                    ///clear search box if filter is selected
+                    _searchController.clear();
+
                     /// filters pop up
                     ///
                     showModalBottomSheet<void>(
@@ -120,7 +132,8 @@ class _DataFiltersState extends State<DataFilters> {
                       // backgroundColor: Colors.black,
                       builder: (BuildContext context) {
                         return FilterOptions(
-                          btnClr: widget.style.buttonColor!,
+                          title: filters[i].title,
+                          style: widget.style,
                           height: height,
 
                           ///
@@ -135,8 +148,11 @@ class _DataFiltersState extends State<DataFilters> {
                                 selectedOptions;
 
                             /// pass option values and get index of it
-                            List<int> indexs =
-                                search(list_of_all_selected_filtersOptions);
+                            List<int> indexs = searchWithSelectedFitler(
+                                list_of_all_selected_filtersOptions);
+                            // .expand((element) => element)
+                            // .toList()); // converting 2d list into 1d list and passing it as args for search()
+                            // var list1d = list2d.expand((x) => x).toList();
 
                             widget.recent_selected_data_index(indexs);
                           },
@@ -155,6 +171,38 @@ class _DataFiltersState extends State<DataFilters> {
                   ),
                 ),
               ),
+              if (i == filters.length - 1)
+                Row(
+                  children: [
+                    Container(
+                      height: 60,
+                      width: 200,
+                      margin: const EdgeInsets.all(13),
+                      child: TextField(
+                        autofocus: false,
+                        controller: _searchController,
+                        onChanged: (String k) {
+                          /// delete all seletced filters if user starts to type in search box
+                          if (k.length == 1) {
+                            initializeEmptySelectedIndexOptionList();
+                          }
+                          List<int> indexs = searchFromText(k);
+                          widget.recent_selected_data_index(indexs);
+                        },
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                          border: OutlineInputBorder(),
+                          prefixIcon: Icon(Icons.search),
+                          hintText: 'Search',
+                          hintStyle: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
 
               /// reset
               if (i == filters.length - 1)
@@ -168,6 +216,7 @@ class _DataFiltersState extends State<DataFilters> {
                     const SizedBox(width: 10),
                     GestureDetector(
                       onTap: () {
+                        _searchController.clear();
                         initializeEmptySelectedIndexOptionList();
                         widget.recent_selected_data_index(null);
                       },
@@ -176,9 +225,9 @@ class _DataFiltersState extends State<DataFilters> {
                         style: TextStyle(color: Colors.red),
                       ),
                     ),
-                    SizedBox(width: 15),
+                    const SizedBox(width: 15),
                   ],
-                )
+                ),
             ],
           );
         },
@@ -190,23 +239,58 @@ class _DataFiltersState extends State<DataFilters> {
     return null;
   }
 
-  List<int> search(List<List> selected_filter) {
+  List<int> searchWithSelectedFitler(List<List> selected_filter) {
     List<int> filteredIndexes = [];
+    // print(selected_filter);
 
     for (int i = 0; i < widget.data.length; i++) {
       bool shouldAdd = true;
-      for (int j = 0; j < widget.filterTitle.length; j++) {
+      // print('--------');
+      for (int j = 0; j < selected_filter.length; j++) {
+        // print(
+        // 'j= $j ${selected_filter[j]} is not empty ${selected_filter[j].isNotEmpty}');
+        // print(
+        // ' IF THAT NOT CONTAINS ${widget.data[i][j]}  = ${!selected_filter[j].contains(widget.data[i][j])}');
         if (selected_filter[j].isNotEmpty &&
             !selected_filter[j].contains(widget.data[i][j])) {
           shouldAdd = false;
+          // print('break');
           break;
         }
       }
       if (shouldAdd) {
         filteredIndexes.add(i);
+        // print('add $i');
       }
     }
 
     return filteredIndexes;
+  }
+
+  /// search from seach box
+  List<int> searchFromText(String word) {
+    List<int> indexes = [];
+
+    for (int i = 0; i < widget.data.length; i++) {
+      for (int j = 0; j < widget.data[i].length; j++) {
+        if (widget.data[i][j].contains(word)) {
+          if (widget.data[i][j].contains(word)) {
+            indexes.add(i);
+            // print('${widget.data[i]}- ${widget.data[i][j]} contains $word');
+          }
+        }
+      }
+    }
+    return indexes;
+  }
+
+  /// FUNCTION TO CHECK IF NESTED LIST IS EMPTY
+  bool isNestedListEmpty(List<List> data) {
+    for (var element in data) {
+      if (element.isNotEmpty) {
+        return false;
+      }
+    }
+    return true;
   }
 }

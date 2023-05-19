@@ -19,7 +19,7 @@ Converts your existing data into Filters.
  
 ## Demo
 
-![](data_filters.gif)
+![](demo.mp4)
 ## Usage
 
 Check out example code in `/example` folder.
@@ -29,27 +29,29 @@ Your main data must be arranged like below.
 
 ```dart
 List<List> data = [
-    ['red', 'dog', 'small', 'bark'],
-    ['green', 'cat', 'medium', 'meow'],
-    ['blue', 'fish', 'large', 'swim'],
-    ['red', 'cat', 'small', 'meow'],
-    ['yellow', 'dog', 'large', 'bark'],
-    ['green', 'fish', 'medium', 'swim'],
-    ['blue', 'dog', 'medium', 'bark'],
-    ['red', 'fish', 'large', 'swim'],
-    ['yellow', 'cat', 'small', 'meow'],
-    ['green', 'dog', 'small', 'bark'],
-    ['blue', 'cat', 'large', 'meow'],
-    ['red', 'fish', 'medium', 'swim'],
-    ['yellow', 'dog', 'medium', 'bark'],
-    ['green', 'fish', 'large', 'swim'],
-    ['blue', 'cat', 'small', 'meow'],
-    ['red', 'dog', 'small', 'bark'],
-    ['yellow', 'cat', 'medium', 'meow'],
-    ['green', 'fish', 'small', 'swim'],
-    ['blue', 'dog', 'large', 'bark'],
-    ['red', 'cat', 'medium', 'meow'],
+    ['red', 'dog', 'small', 'bark', 'pet'],
+    ['green', 'cat', 'medium', 'meow', 'stray'],
+    ['blue', 'fish', 'large', 'swim', 'pet'],
+    ['red', 'cat', 'small', 'meow', 'stray'],
+    ['yellow', 'dog', 'large', 'bark', 'pet'],
+    ['green', 'fish', 'medium', 'swim', 'pet'],
+    ['blue', 'dog', 'medium', 'bark', 'pet'],
+    ['red', 'fish', 'large', 'swim', 'pet'],
+    ['yellow', 'cat', 'small', 'meow', 'pet'],
+    ['green', 'dog', 'small', 'bark', 'pet'],
+    ['blue', 'cat', 'large', 'meow', 'pet'],
+    ['red', 'fish', 'medium', 'swim', 'stray'],
+    ['yellow', 'dog', 'medium', 'bark', 'pet'],
+    ['green', 'fish', 'large', 'swim', 'stray'],
+    ['blue', 'cat', 'small', 'meow', 'pet'],
+    ['red', 'dog', 'small', 'bark', 'stray'],
+    ['yellow', 'cat', 'medium', 'meow', 'pet'],
+    ['green', 'fish', 'small', 'swim', 'stray'],
+    ['blue', 'dog', 'large', 'bark', 'pet'],
+    ['pink', 'cat', 'medium', 'meow', 'pet'],
   ];
+
+List<String> titles = ['Color', 'Animal', 'Size', 'Sound', 'Type'];
 
 
 ```
@@ -60,16 +62,26 @@ List<int>? filterIndex;
 
 This code builds a filters ui
 ```dart
-        DataFilters(
+          DataFilters(
             data: data,
-            filterTitle: const ['Color', 'Animal', 'Size', 'Sound'],
+
+            /// pass your filter title here
+            filterTitle: titles,
+
+            /// enable animation
+            showAnimation: true,
+
+            /// get list of index of selected filter
             recent_selected_data_index: (List<int>? index) {
               setState(() {
                 filterIndex = index;
               });
             },
+
+            /// styling
             style: FilterStyle(
-              buttonColor: Colors.red,
+              buttonColor: Colors.green,
+              buttonColorText: Colors.white,
               filterBorderColor: Colors.grey,
             ),
           ),
