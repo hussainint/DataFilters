@@ -1,6 +1,6 @@
 name: data_filters
 description: Add Filters to your existing data. Pass nested list of values and generate filters for it.
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/hussainint/DataFilters
 
 environment:
