@@ -1,3 +1,7 @@
+## 1.0.1
+
+* Search box included which search text in lower and upper case. Filter box gets highlited when filters is selected.
+
 ## 1.0.0
 
 * Search box included. Filter box gets highlited when filters is selected.
