@@ -19,13 +19,10 @@ Converts your existing data into Filters.
  
 ## Demo
 
-![Demo Video](https://github.com/hussainint/DataFilters/assets/48062618/5ff0dcb1-2e9a-4d5e-9cb4-a1a93a131162)
-
-https://github.com/hussainint/DataFilters/assets/48062618/5ff0dcb1-2e9a-4d5e-9cb4-a1a93a131162
+![Demo Video](https://github.com/hussainint/DataFilters/blob/main/demo.mp4?raw=true)
 
 
-
-![Screenshot](./promo.jpg)
+![Screenshot](https://github.com/hussainint/DataFilters/blob/main/promo.jpg)
 ## Usage
 
 Check out example code in `/example` folder.
