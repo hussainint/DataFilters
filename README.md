@@ -19,7 +19,7 @@ Converts your existing data into Filters.
  
 ## Demo
 
-![Demo Video](https://github.com/hussainint/DataFilters/assets/48062618/5ff0dcb1-2e9a-4d5e-9cb4-a1a93a131162raw=true)
+https://github.com/hussainint/DataFilters/assets/48062618/5ff0dcb1-2e9a-4d5e-9cb4-a1a93a131162
 
 
 ![Screenshot](https://github.com/hussainint/DataFilters/blob/main/promo.jpg)
