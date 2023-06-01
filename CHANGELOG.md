@@ -1,3 +1,5 @@
+## 1.0.2
+Big Fixes. Earlier the code broke when data was empty
 ## 1.0.1+1
 
 * Search box included which search text in lower and upper case. Filter box gets highlited when filters is selected.
